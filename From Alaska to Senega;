@@ -1,0 +1,38 @@
+def calculate_distance(lat1, lon1, lat2, lon2):
+    """
+    Calculates the distance between two geographical coordinates using the Haversine formula.
+    
+    Args:
+        lat1 (float): The latitude of the first location in degrees.
+        lon1 (float): The longitude of the first location in degrees.
+        lat2 (float): The latitude of the second location in degrees.
+        lon2 (float): The longitude of the second location in degrees.
+        
+    Returns:
+        float: The distance between the two locations in kilometers.
+    """
+    earth_radius = 6371  # Earth's radius in kilometers
+    
+    # Convert degrees to radians
+    lat1_rad = math.radians(lat1)
+    lon1_rad = math.radians(lon1)
+    lat2_rad = math.radians(lat2)
+    lon2_rad = math.radians(lon2)
+    
+    # Calculate the Haversine formula
+    delta_lat = lat2_rad - lat1_rad
+    delta_lon = lon2_rad - lon1_rad
+    a = math.sin(delta_lat / 2) ** 2 + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(delta_lon / 2) ** 2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    distance = earth_radius * c
+    
+    return distance
+
+# Example usage
+alaska_lat = 61.2181
+alaska_lon = -149.9003
+senegal_lat = 14.6937
+senegal_lon = -17.4441
+
+distance_km = calculate_distance(alaska_lat, alaska_lon, senegal_lat, senegal_lon)
+print(f"The distance from Alaska to Senegal is approximately {distance_km:.2f} kilometers.")
